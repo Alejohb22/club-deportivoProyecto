@@ -10,29 +10,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const participanteDisciplinaIdSelect = document.getElementById("participanteDisciplinaId");
     const eventoParticipanteIdSelect = document.getElementById("eventoParticipanteId");
 
-    // Obtener disciplinas
-    fetch("DisciplinaServlet")
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(disciplina => {
-                const option = document.createElement("option");
-                option.value = disciplina.id;
-                option.text = disciplina.nombre;
-                participanteDisciplinaIdSelect.add(option);
-            });
-        });
+    // Función para obtener datos y llenar un <select>
+    function llenarSelect(url, selectElement, textCallback) {
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Verifica los datos recibidos
+                selectElement.innerHTML = ''; // Limpiar las opciones actuales
+                data.forEach(item => {
+                    const option = document.createElement("option");
+                    option.value = item.id;
+                    option.text = textCallback(item); // Usa el callback para construir el texto
+                    selectElement.add(option);
+                });
+            })
+            .catch(error => console.error('Error al obtener los datos:', error));
+    }
 
-    // Obtener participantes
-    fetch("ParticipanteServlet")
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(participante => {
-                const option = document.createElement("option");
-                option.value = participante.id;
-                option.text = participante.nombre + " " + participante.apellido;
-                eventoParticipanteIdSelect.add(option);
-            });
-        });
+    // Obtener disciplinas y participantes al cargar la página
+    llenarSelect("DisciplinaServlet", participanteDisciplinaIdSelect, item => item.nombre);
+
+    // Obtener participantes para la lista de eventos
+    llenarSelect("ParticipanteServlet", eventoParticipanteIdSelect, item => `${item.nombre} ${item.apellido} (ID: ${item.id})`);
 
     // Agregar Participante
     participanteForm.addEventListener("submit", function (event) {
@@ -52,8 +51,10 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(participante)
         }).then(response => {
-            if (response.status === 201) {
+            if (response.ok) {
                 resultadoParticipante.innerText = "Participante agregado exitosamente";
+                participanteForm.reset(); // Limpia el formulario
+                llenarSelect("ParticipanteServlet", eventoParticipanteIdSelect, item => `${item.nombre} ${item.apellido} (ID: ${item.id})`); // Actualiza lista de participantes
             } else {
                 resultadoParticipante.innerText = "Error al agregar participante";
             }
@@ -75,8 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(disciplina)
         }).then(response => {
-            if (response.status === 201) {
+            if (response.ok) {
                 resultadoDisciplina.innerText = "Disciplina agregada exitosamente";
+                disciplinaForm.reset(); // Limpia el formulario
+                llenarSelect("DisciplinaServlet", participanteDisciplinaIdSelect, item => item.nombre);
             } else {
                 resultadoDisciplina.innerText = "Error al agregar disciplina";
             }
@@ -101,8 +104,10 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             body: JSON.stringify(evento)
         }).then(response => {
-            if (response.status === 201) {
+            if (response.ok) {
                 resultadoEvento.innerText = "Evento agregado exitosamente";
+                eventoForm.reset(); // Limpia el formulario
+                // Opcional: Actualizar la lista de eventos si es necesario
             } else {
                 resultadoEvento.innerText = "Error al agregar evento";
             }

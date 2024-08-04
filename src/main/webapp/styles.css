@@ -1,43 +1,92 @@
-/* styles.css */
-
+/* Estilo global */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
 }
 
-h1, h2 {
+/* Encabezado principal */
+h1 {
+    background-color: #4CAF50;
+    color: white;
+    padding: 20px;
     text-align: center;
+    margin: 0;
+    font-size: 2.5rem;
+    border-bottom: 5px solid #388E3C;
 }
 
+/* Secciones */
 section {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px auto;
-    width: 80%;
-    max-width: 600px;
+    padding: 20px;
+    max-width: 800px;
 }
 
+/* Títulos de secciones */
+h2 {
+    color: #4CAF50;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* Formularios */
 form {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    gap: 15px;
 }
 
-form input, form select, form button {
-    margin: 5px 0;
+input, select, button {
+    border: 1px solid #ddd;
+    border-radius: 5px;
     padding: 10px;
-    font-size: 16px;
+    font-size: 1rem;
 }
 
-form button {
+input:focus, select:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+button {
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
 }
 
-form button:hover {
-    background-color: #45a049;
+button:hover {
+    background-color: #388E3C;
 }
 
-#resultado, #resultadoDisciplina, #resultadoEvento {
-    margin-top: 10px;
-    text-align: center;
+/* Mensajes de resultado */
+#resultadoParticipante, #resultadoDisciplina, #resultadoEvento {
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
     font-weight: bold;
+}
+
+#resultadoParticipante {
+    background-color: #e8f5e9;
+    color: #388E3C;
+}
+
+#resultadoDisciplina {
+    background-color: #e8f5e9;
+    color: #388E3C;
+}
+
+#resultadoEvento {
+    background-color: #ffe0b2;
+    color: #f57c00;
 }
