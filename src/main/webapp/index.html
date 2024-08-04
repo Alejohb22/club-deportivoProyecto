@@ -8,43 +8,43 @@
 </head>
 <body>
 <h1>Gestión del Club Deportivo</h1>
+<div class="container">
+    <section id="participantes">
+        <h2>Participantes</h2>
+        <form id="participanteForm">
+            <input type="text" id="participanteId" placeholder="ID" required>
+            <input type="text" id="participanteNombre" placeholder="Nombre" required>
+            <input type="text" id="participanteApellido" placeholder="Apellido" required>
+            <input type="email" id="participanteEmail" placeholder="Email" required>
+            <select id="participanteDisciplinaId" required></select>
+            <button type="submit">Agregar Participante</button>
+        </form>
+        <div id="resultadoParticipante"></div>
+    </section>
 
-<section id="participantes">
-    <h2>Participantes</h2>
-    <form id="participanteForm">
-        <input type="text" id="participanteId" placeholder="ID" required>
-        <input type="text" id="participanteNombre" placeholder="Nombre" required>
-        <input type="text" id="participanteApellido" placeholder="Apellido" required>
-        <input type="email" id="participanteEmail" placeholder="Email" required>
-        <select id="participanteDisciplinaId" required></select>
-        <button type="submit">Agregar Participante</button>
-    </form>
-    <div id="resultadoParticipante"></div>
-</section>
+    <section id="disciplinas">
+        <h2>Disciplinas</h2>
+        <form id="disciplinaForm">
+            <input type="text" id="disciplinaId" placeholder="ID" required>
+            <input type="text" id="disciplinaNombre" placeholder="Nombre" required>
+            <button type="submit">Agregar Disciplina</button>
+        </form>
+        <div id="resultadoDisciplina"></div>
+    </section>
 
-<section id="disciplinas">
-    <h2>Disciplinas</h2>
-    <form id="disciplinaForm">
-        <input type="text" id="disciplinaId" placeholder="ID" required>
-        <input type="text" id="disciplinaNombre" placeholder="Nombre" required>
-        <button type="submit">Agregar Disciplina</button>
-    </form>
-    <div id="resultadoDisciplina"></div>
-</section>
-
-<section id="eventos">
-    <h2>Eventos</h2>
-    <form id="eventoForm">
-        <input type="text" id="eventoId" placeholder="ID" required>
-        <input type="text" id="eventoNombre" placeholder="Nombre" required>
-        <input type="date" id="eventoFecha" required>
-        <input type="text" id="eventoResultado" placeholder="Resultado" required>
-        <select id="eventoParticipanteId" required></select>
-        <button type="submit">Agregar Evento</button>
-    </form>
-    <div id="resultadoEvento"></div>
-</section>
-
+    <section id="eventos">
+        <h2>Eventos</h2>
+        <form id="eventoForm">
+            <input type="text" id="eventoId" placeholder="ID" required>
+            <input type="text" id="eventoNombre" placeholder="Nombre" required>
+            <input type="date" id="eventoFecha" required>
+            <input type="text" id="eventoResultado" placeholder="Resultado" required>
+            <select id="eventoParticipanteId" required></select>
+            <button type="submit">Agregar Evento</button>
+        </form>
+        <div id="resultadoEvento"></div>
+    </section>
+</div>
 <script src="script.js"></script>
 </body>
 </html>
