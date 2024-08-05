@@ -29,8 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Obtener disciplinas y participantes al cargar la página
     llenarSelect("DisciplinaServlet", participanteDisciplinaIdSelect, item => item.nombre);
-
-    // Obtener participantes para la lista de eventos
     llenarSelect("ParticipanteServlet", eventoParticipanteIdSelect, item => `${item.nombre} ${item.apellido} (ID: ${item.id})`);
 
     // Agregar Participante
@@ -66,8 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         const id = document.getElementById("disciplinaId").value;
         const nombre = document.getElementById("disciplinaNombre").value;
+        const tipo = document.getElementById("disciplinaTipo").value; // Nuevo campo
 
-        const disciplina = { id, nombre };
+        const disciplina = { id, nombre, tipo };
 
         fetch("DisciplinaServlet", {
             method: "POST",

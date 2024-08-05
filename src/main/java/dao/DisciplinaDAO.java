@@ -22,14 +22,19 @@ public class DisciplinaDAO {
 
     public void agregarDisciplina(Disciplina disciplina) {
         Document doc = new Document("id", disciplina.getId())
-                .append("nombre", disciplina.getNombre());
+                .append("nombre", disciplina.getNombre())
+                .append("tipo", disciplina.getTipo()); // Agregar el campo tipo
         collection.insertOne(doc);
     }
 
     public Disciplina obtenerDisciplina(String id) {
         Document doc = collection.find(Filters.eq("id", id)).first();
         if (doc != null) {
-            return new Disciplina(doc.getString("id"), doc.getString("nombre"));
+            return new Disciplina(
+                    doc.getString("id"),
+                    doc.getString("nombre"),
+                    doc.getString("tipo") // Obtener el campo tipo
+            );
         }
         return null;
     }
@@ -39,7 +44,8 @@ public class DisciplinaDAO {
         for (Document doc : collection.find()) {
             Disciplina disciplina = new Disciplina(
                     doc.getString("id"),
-                    doc.getString("nombre")
+                    doc.getString("nombre"),
+                    doc.getString("tipo") // Obtener el campo tipo
             );
             disciplinas.add(disciplina);
         }
@@ -49,7 +55,8 @@ public class DisciplinaDAO {
     public void actualizarDisciplina(Disciplina disciplina) {
         Bson filter = Filters.eq("id", disciplina.getId());
         Bson update = Updates.combine(
-                Updates.set("nombre", disciplina.getNombre())
+                Updates.set("nombre", disciplina.getNombre()),
+                Updates.set("tipo", disciplina.getTipo()) // Actualizar el campo tipo
         );
         collection.updateOne(filter, update);
     }
