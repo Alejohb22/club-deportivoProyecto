@@ -9,6 +9,7 @@
 <body>
 <h1>Gestión del Club Deportivo</h1>
 <div class="container">
+    <!-- Sección de Participantes -->
     <section id="participantes">
         <h2>Participantes</h2>
         <form id="participanteForm">
@@ -22,6 +23,7 @@
         <div id="resultadoParticipante"></div>
     </section>
 
+    <!-- Sección de Disciplinas -->
     <section id="disciplinas">
         <h2>Disciplinas</h2>
         <form id="disciplinaForm">
@@ -36,6 +38,7 @@
         <div id="resultadoDisciplina"></div>
     </section>
 
+    <!-- Sección de Eventos -->
     <section id="eventos">
         <h2>Eventos</h2>
         <form id="eventoForm">
@@ -47,6 +50,32 @@
             <button type="submit">Agregar Evento</button>
         </form>
         <div id="resultadoEvento"></div>
+    </section>
+
+    <!-- Sección de Consultas -->
+    <section id="consultas">
+        <h2>Consultas</h2>
+
+        <!-- Consulta de Participantes -->
+        <form id="consultaParticipantesForm">
+            <input type="text" id="consultaParticipanteId" placeholder="ID del Participante">
+            <button type="submit">Consultar Participante</button>
+        </form>
+        <div id="resultadoConsultaParticipante"></div>
+
+        <!-- Consulta de Disciplinas -->
+        <form id="consultaDisciplinasForm">
+            <input type="text" id="consultaDisciplinaId" placeholder="ID de la Disciplina">
+            <button type="submit">Consultar Disciplina</button>
+        </form>
+        <div id="resultadoConsultaDisciplina"></div>
+
+        <!-- Consulta de Eventos -->
+        <form id="consultaEventosForm">
+            <input type="text" id="consultaEventoId" placeholder="ID del Evento">
+            <button type="submit">Consultar Evento</button>
+        </form>
+        <div id="resultadoConsultaEvento"></div>
     </section>
 </div>
 <script src="script.js"></script>

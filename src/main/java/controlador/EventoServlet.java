@@ -23,10 +23,22 @@ public class EventoServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Evento> eventos = eventoDAO.obtenerTodosEventos();
-        String json = gson.toJson(eventos);
-        resp.setContentType("application/json");
-        resp.getWriter().write(json);
+        String id = req.getParameter("id");
+        if (id != null) {
+            Evento evento = eventoDAO.obtenerEvento(id);
+            if (evento != null) {
+                String json = gson.toJson(evento);
+                resp.setContentType("application/json");
+                resp.getWriter().write(json);
+            } else {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Evento no encontrado");
+            }
+        } else {
+            List<Evento> eventos = eventoDAO.obtenerTodosEventos();
+            String json = gson.toJson(eventos);
+            resp.setContentType("application/json");
+            resp.getWriter().write(json);
+        }
     }
 
     @Override

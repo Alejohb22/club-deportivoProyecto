@@ -20,10 +20,22 @@ public class DisciplinaServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Disciplina> disciplinas = disciplinaDAO.obtenerTodasDisciplinas();
-        String json = gson.toJson(disciplinas);
-        resp.setContentType("application/json");
-        resp.getWriter().write(json);
+        String id = req.getParameter("id");
+        if (id != null) {
+            Disciplina disciplina = disciplinaDAO.obtenerDisciplina(id);
+            if (disciplina != null) {
+                String json = gson.toJson(disciplina);
+                resp.setContentType("application/json");
+                resp.getWriter().write(json);
+            } else {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Disciplina no encontrada");
+            }
+        } else {
+            List<Disciplina> disciplinas = disciplinaDAO.obtenerTodasDisciplinas();
+            String json = gson.toJson(disciplinas);
+            resp.setContentType("application/json");
+            resp.getWriter().write(json);
+        }
     }
 
     @Override

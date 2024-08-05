@@ -10,6 +10,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const participanteDisciplinaIdSelect = document.getElementById("participanteDisciplinaId");
     const eventoParticipanteIdSelect = document.getElementById("eventoParticipanteId");
 
+    const consultaParticipantesForm = document.getElementById("consultaParticipantesForm");
+    const consultaDisciplinasForm = document.getElementById("consultaDisciplinasForm");
+    const consultaEventosForm = document.getElementById("consultaEventosForm");
+
+    const resultadoConsultaParticipante = document.getElementById("resultadoConsultaParticipante");
+    const resultadoConsultaDisciplina = document.getElementById("resultadoConsultaDisciplina");
+    const resultadoConsultaEvento = document.getElementById("resultadoConsultaEvento");
+
     // Función para obtener datos y llenar un <select>
     function llenarSelect(url, selectElement, textCallback) {
         fetch(url)
@@ -111,5 +119,65 @@ document.addEventListener("DOMContentLoaded", function () {
                 resultadoEvento.innerText = "Error al agregar evento";
             }
         });
+    });
+
+    // Consulta de Participante
+    consultaParticipantesForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const id = document.getElementById("consultaParticipanteId").value;
+
+        fetch(`ParticipanteServlet?id=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    resultadoConsultaParticipante.innerText = `Participante: ${data.nombre} ${data.apellido} - Email: ${data.email}`;
+                } else {
+                    resultadoConsultaParticipante.innerText = "Participante no encontrado";
+                }
+            })
+            .catch(error => {
+                console.error('Error al consultar participante:', error);
+                resultadoConsultaParticipante.innerText = "Error al consultar participante";
+            });
+    });
+
+    // Consulta de Disciplina
+    consultaDisciplinasForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const id = document.getElementById("consultaDisciplinaId").value;
+
+        fetch(`DisciplinaServlet?id=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    resultadoConsultaDisciplina.innerText = `Disciplina: ${data.nombre} - Tipo: ${data.tipo}`;
+                } else {
+                    resultadoConsultaDisciplina.innerText = "Disciplina no encontrada";
+                }
+            })
+            .catch(error => {
+                console.error('Error al consultar disciplina:', error);
+                resultadoConsultaDisciplina.innerText = "Error al consultar disciplina";
+            });
+    });
+
+    // Consulta de Evento
+    consultaEventosForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const id = document.getElementById("consultaEventoId").value;
+
+        fetch(`EventoServlet?id=${id}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    resultadoConsultaEvento.innerText = `Evento: ${data.nombre} - Fecha: ${data.fecha} - Resultado: ${data.resultado}`;
+                } else {
+                    resultadoConsultaEvento.innerText = "Evento no encontrado";
+                }
+            })
+            .catch(error => {
+                console.error('Error al consultar evento:', error);
+                resultadoConsultaEvento.innerText = "Error al consultar evento";
+            });
     });
 });

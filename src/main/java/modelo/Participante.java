@@ -32,3 +32,4 @@ public class Participante {
     public Disciplina getDisciplina() { return disciplina; }
     public void setDisciplina(Disciplina disciplina) { this.disciplina = disciplina; }
 }
+

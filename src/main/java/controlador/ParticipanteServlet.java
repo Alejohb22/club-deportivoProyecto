@@ -23,10 +23,22 @@ public class ParticipanteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Participante> participantes = participanteDAO.obtenerTodosParticipantes();
-        String json = gson.toJson(participantes);
-        resp.setContentType("application/json");
-        resp.getWriter().write(json);
+        String id = req.getParameter("id");
+        if (id != null) {
+            Participante participante = participanteDAO.obtenerParticipante(id);
+            if (participante != null) {
+                String json = gson.toJson(participante);
+                resp.setContentType("application/json");
+                resp.getWriter().write(json);
+            } else {
+                resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Participante no encontrado");
+            }
+        } else {
+            List<Participante> participantes = participanteDAO.obtenerTodosParticipantes();
+            String json = gson.toJson(participantes);
+            resp.setContentType("application/json");
+            resp.getWriter().write(json);
+        }
     }
 
     @Override
