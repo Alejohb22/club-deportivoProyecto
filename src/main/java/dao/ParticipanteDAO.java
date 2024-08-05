@@ -76,4 +76,9 @@ public class ParticipanteDAO {
     public void eliminarParticipante(String id) {
         collection.deleteOne(Filters.eq("id", id));
     }
+
+    public boolean estaInscritoEnDisciplina(String participanteId) {
+        Document doc = collection.find(Filters.eq("id", participanteId)).first();
+        return doc != null && doc.getString("disciplina") != null;
+    }
 }

@@ -33,6 +33,12 @@ public class ParticipanteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
         Participante participante = gson.fromJson(reader, Participante.class);
+
+        if (participanteDAO.estaInscritoEnDisciplina(participante.getId())) {
+            resp.sendError(HttpServletResponse.SC_CONFLICT, "El participante ya está inscrito en una disciplina.");
+            return;
+        }
+
         Disciplina disciplina = disciplinaDAO.obtenerDisciplina(participante.getDisciplina().getId());
         participante.setDisciplina(disciplina);
         participanteDAO.agregarParticipante(participante);
@@ -43,6 +49,12 @@ public class ParticipanteServlet extends HttpServlet {
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         BufferedReader reader = req.getReader();
         Participante participante = gson.fromJson(reader, Participante.class);
+
+        if (participanteDAO.estaInscritoEnDisciplina(participante.getId())) {
+            resp.sendError(HttpServletResponse.SC_CONFLICT, "El participante ya está inscrito en una disciplina.");
+            return;
+        }
+
         Disciplina disciplina = disciplinaDAO.obtenerDisciplina(participante.getDisciplina().getId());
         participante.setDisciplina(disciplina);
         participanteDAO.actualizarParticipante(participante);
