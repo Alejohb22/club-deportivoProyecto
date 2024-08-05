@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const resultadoConsultaDisciplina = document.getElementById("resultadoConsultaDisciplina");
     const resultadoConsultaEvento = document.getElementById("resultadoConsultaEvento");
 
+    const eventosLista = document.getElementById("eventosLista"); // Contenedor para la lista de eventos
+
     // Función para obtener datos y llenar un <select>
     function llenarSelect(url, selectElement, textCallback) {
         fetch(url)
@@ -114,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.ok) {
                 resultadoEvento.innerText = "Evento agregado exitosamente";
                 eventoForm.reset(); // Limpia el formulario
-                // Opcional: Actualizar la lista de eventos si es necesario
+                obtenerEventos(); // Actualiza la lista de eventos
             } else {
                 resultadoEvento.innerText = "Error al agregar evento";
             }
@@ -180,4 +182,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 resultadoConsultaEvento.innerText = "Error al consultar evento";
             });
     });
+
+    // Función para obtener y mostrar la lista de eventos
+    function obtenerEventos() {
+        fetch("EventoServlet")
+            .then(response => response.json())
+            .then(data => {
+                eventosLista.innerHTML = ''; // Limpiar la lista actual
+                data.forEach(evento => {
+                    const li = document.createElement("li");
+                    li.textContent = `Evento: ${evento.nombre} - Fecha: ${evento.fecha} - Resultado: ${evento.resultado} - Participante: ${evento.participante.nombre} ${evento.participante.apellido}`;
+                    eventosLista.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error('Error al obtener eventos:', error);
+            });
+    }
+
+    // Llama a la función para obtener y mostrar los eventos al cargar la página
+    obtenerEventos();
 });
